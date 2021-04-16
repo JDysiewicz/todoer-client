@@ -1,88 +1,41 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
-import React, { useState } from "react";
-import { client } from "../api/apollo";
-import Another from "./Another";
+import { gql, useQuery } from "@apollo/client";
+import React from "react";
 
-const GET_USERS = gql`
-	query GetUsers {
-		users {
-			email
+const PROJECTS = gql`
+	query Projects {
+		projects {
+			color
 			id
 			name
-			role
-			projects {
-				color
+			order
+			todos {
+				due
 				id
-				name
-				order
-				todos {
-					due
-					id
-					title
-				}
-			}
-		}
-	}
-`;
-
-const LOG_IN = gql`
-	mutation LogIn($email: String!, $password: String!) {
-		loginUser(input: { email: $email, password: $password }) {
-			token
-			user {
-				email
-				id
-				name
-				role
+				title
 			}
 		}
 	}
 `;
 
 const App: React.FC = (): JSX.Element => {
-	const [user, setUser] = useState(null);
-	const { loading, error, data } = useQuery(GET_USERS, {});
-	console.log(data);
-	const [logUserIn] = useMutation(LOG_IN, {
-		onCompleted(data) {
-			localStorage.setItem("token", data.loginUser.token);
-			setUser(data.user);
-		},
-	});
+	const { loading, data } = useQuery(PROJECTS);
 
-	const login = async () => {
-		const email = "admin@admin.com";
-		const password = "password";
-		try {
-			await logUserIn({ variables: { email, password } });
-		} catch (err) {
-			console.log(err);
-		}
+	const renderProjects = () => {
+		if (!data) return null;
+		return data.projects.map((project: any) => {
+			return (
+				<li key={project.id}>
+					<h2>{project.name}</h2>
+				</li>
+			);
+		});
 	};
 
 	return (
 		<div>
-			<h1>Hello, world!</h1>
-			<Another />
-			{loading && <h2>Loading...</h2>}
-			{user && <h2>LOGGED IN!!!</h2>}
-			{!user && <h2>NOT LOGGED IN</h2>}
-			{error && <h2>ERROR {JSON.stringify(error)}</h2>}
-			{data && <p>{JSON.stringify(data)}</p>}
-			<button onClick={() => login()}>Log in</button>
-			<button
-				onClick={() => {
-					try {
-						localStorage.removeItem("token");
-						setUser(null);
-						client.resetStore();
-					} catch (err) {
-						console.log(err);
-					}
-				}}
-			>
-				Log out
-			</button>
+			<h1>Projects</h1>
+			{loading && <div>Loading projects...</div>}
+			<ul>{renderProjects()}</ul>
 		</div>
 	);
 };
