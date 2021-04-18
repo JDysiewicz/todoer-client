@@ -1,13 +1,16 @@
 import { Button } from "@chakra-ui/button";
 import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
 import React from "react";
-import { client } from "../api/apollo";
+import { useHistory } from "react-router";
+import { client } from "../../api/apollo";
 
 const Header = ({ setUser }: any) => {
+	const history = useHistory();
 	const logout = async () => {
 		setUser(null);
 		localStorage.removeItem("token");
 		await client.clearStore();
+		history.push("/");
 	};
 
 	return (
@@ -28,8 +31,8 @@ const NavBarContainer = ({ children }: any) => {
 			justify="space-between"
 			wrap="wrap"
 			w="100%"
-			mb={12}
-			p={6}
+			p={4}
+			pb={6}
 			bg="#DB4C3F"
 			color={["white", "white", "primary.700", "primary.700"]}
 		>

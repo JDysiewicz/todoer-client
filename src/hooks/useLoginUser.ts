@@ -1,18 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
-
-const LOG_IN = gql`
-	mutation LogIn($email: String!, $password: String!) {
-		loginUser(input: { email: $email, password: $password }) {
-			token
-			user {
-				email
-				id
-				name
-				role
-			}
-		}
-	}
-`;
+import { useHistory } from "react-router";
+import { LOG_IN } from "../graphql/mutations";
 
 export const useLoginUser = ({
 	setEmail,
@@ -21,6 +9,7 @@ export const useLoginUser = ({
 	setUser,
 	setError,
 }: any) => {
+	const history = useHistory();
 	const [logUserIn] = useMutation(LOG_IN, {
 		onError: (err) => {
 			if (err.message) setError(err.message);
@@ -39,6 +28,7 @@ export const useLoginUser = ({
 			setEmail("");
 			setPassword("");
 			setIsSubmitting(false);
+			history.push("/");
 		},
 	});
 
