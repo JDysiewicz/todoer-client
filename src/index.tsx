@@ -1,14 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { ApolloProvider } from "@apollo/client/react";
-import { client } from "./api/apollo";
+
 import AppRoutes from "./AppRoutes";
+import ProviderWrapper from "./ProviderWrapper";
 
 ReactDOM.render(
-	<ApolloProvider client={client}>
-		<React.StrictMode>
-			<AppRoutes />
-		</React.StrictMode>
-	</ApolloProvider>,
+	<ProviderWrapper>
+		<AppRoutes />
+	</ProviderWrapper>,
 	document.getElementById("root")
 );

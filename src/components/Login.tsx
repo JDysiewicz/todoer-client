@@ -1,71 +1,77 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
-import React from "react";
-
-const GET_USERS = gql`
-	query GetUsers {
-		users {
-			email
-			id
-			name
-			role
-			projects {
-				color
-				id
-				name
-				order
-				todos {
-					due
-					id
-					title
-				}
-			}
-		}
-	}
-`;
-
-const LOG_IN = gql`
-	mutation LogIn($email: String!, $password: String!) {
-		loginUser(input: { email: $email, password: $password }) {
-			token
-			user {
-				email
-				id
-				name
-				role
-			}
-		}
-	}
-`;
+import React, { useState } from "react";
+import { useLoginUser } from "../hooks/useLoginUser";
+import {
+	FormControl,
+	FormLabel,
+	FormErrorMessage,
+	FormHelperText,
+	Input,
+	Box,
+	Heading,
+	Button,
+	Flex,
+} from "@chakra-ui/react";
 
 const Login = ({ setUser }: any) => {
-	const { loading, error, data, refetch } = useQuery(GET_USERS, {});
-	const [logUserIn] = useMutation(LOG_IN, {
-		onError: (err) => {
-			console.log("ERR", err);
-		},
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [error, setError] = useState("");
+
+	const login = useLoginUser({
+		setEmail,
+		setPassword,
+		setIsSubmitting,
+		setUser,
+		setError,
 	});
 
-	const login = async () => {
-		const email = "admin@admin.com";
-		const password = "password";
-		try {
-			const response = await logUserIn({
-				variables: { email, password },
-			});
-			const token = response.data.loginUser.token;
-			const user = response.data.loginUser.user;
-			setUser(user);
-			localStorage.setItem("token", token);
-		} catch (err) {
-			console.log("Error!", err);
-		}
-	};
-
 	return (
-		<div>
-			<h2>Log In</h2>
-			<button onClick={() => login()}>Log in here</button>
-		</div>
+		<Flex width="full" align="center" justifyContent="center">
+			<Box m={10} p={2}>
+				<Box textAlign="center">
+					<Heading marginBottom="10px">Login</Heading>
+				</Box>
+				<Box my={4} textAlign="left">
+					<form
+						onSubmit={(e) => {
+							e.preventDefault();
+							setIsSubmitting(true);
+							login({
+								variables: { email, password },
+							});
+						}}
+					>
+						<FormControl id="email">
+							<FormLabel>Email address</FormLabel>
+							<Input
+								value={email}
+								type="email"
+								onChange={(e) => setEmail(e.target.value)}
+							/>
+						</FormControl>
+
+						<FormControl id="password">
+							<FormLabel>Password</FormLabel>
+							<Input
+								value={password}
+								type="password"
+								onChange={(e) => setPassword(e.target.value)}
+							/>
+						</FormControl>
+						<Button
+							width="full"
+							mt={6}
+							disabled={isSubmitting}
+							type="submit"
+						>
+							Log in
+						</Button>
+						{error && <p style={{ color: "red" }}>{error}</p>}
+					</form>
+				</Box>
+			</Box>
+		</Flex>
 	);
 };
 
