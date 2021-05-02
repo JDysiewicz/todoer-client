@@ -34,7 +34,6 @@ const AppRoutes = () => {
 	});
 
 	if (loading) return <div>Loading....</div>;
-	console.log(user);
 
 	return (
 		<UserContext.Provider value={user}>

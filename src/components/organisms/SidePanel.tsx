@@ -44,7 +44,7 @@ const SidePanel = () => {
 	};
 
 	return (
-		<Box pt={6} pl={12} h="100%" bg="#EEEEEE" w="100%">
+		<Box pt={6} pl={12} h="100vh" bg="#EEEEEE" w="100%">
 			<Text>Side Bar</Text>
 			{renderProjects()}
 		</Box>

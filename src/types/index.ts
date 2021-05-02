@@ -1,6 +1,8 @@
+type ID = string;
+
 export interface User {
 	email: string;
-	id: number;
+	id: ID;
 	name: string;
 	role: string;
 	projects: Project[];
@@ -10,14 +12,14 @@ export interface User {
 export interface Project {
 	name: string;
 	order: number;
-	id: number;
+	id: ID;
 	user: User;
 	todos: Todo[];
 }
 
 export interface Todo {
 	title: string;
-	id: number;
+	id: ID;
 	due?: Date;
 	project: Project;
 	user: User;

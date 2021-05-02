@@ -17,7 +17,6 @@ const Login = ({ setUser }: any) => {
 	const [password, setPassword] = useState("");
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [error, setError] = useState("");
-	console.log("WHAT");
 
 	const login = useLoginUser({
 		setEmail,

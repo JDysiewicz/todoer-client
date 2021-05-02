@@ -5,14 +5,22 @@ import { Project } from "../types";
 
 export const useGetProjectById = (projectId: string) => {
 	const [project, setProject] = useState<Project>();
-	const [getProject, { data, loading, error }] = useLazyQuery(GET_PROJECT);
+	const [getProject, { data, loading, error, refetch }] = useLazyQuery(
+		GET_PROJECT
+	);
+
+	const refetchProjects = async () => {
+		if (!refetch) return;
+		const response = await refetch();
+		setProject(response.data.project);
+	};
 
 	useEffect(() => {
 		if (projectId.match(/^\d+$/)) {
 			getProject({ variables: { projectId } });
 			if (!loading && data) setProject(data.project);
 		}
-	}, [projectId, loading, data]);
+	}, [projectId, loading, data, getProject]);
 
-	return { project, loading, error };
+	return { project, loading, error, refetchProjects };
 };
