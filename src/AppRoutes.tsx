@@ -1,18 +1,14 @@
 import { gql, useQuery } from "@apollo/client";
 import { Grid, GridItem } from "@chakra-ui/layout";
 import React, { useState } from "react";
-import {
-	BrowserRouter as Router,
-	Route,
-	Switch,
-	Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/molecules/Header";
 import Login from "./pages/LoginPage";
 import NullComponent from "./pages/NullComponentPage";
 import ProjectPage from "./pages/ProjectPage";
 import SidePanel from "./components/organisms/SidePanel";
 import UserContext from "./context/UserContext";
+import { User } from "./types";
 
 const GET_CURRENT_USER = gql`
 	query CurrentUser {
@@ -25,8 +21,8 @@ const GET_CURRENT_USER = gql`
 	}
 `;
 
-const AppRoutes = () => {
-	const [user, setUser] = useState(null);
+const AppRoutes = (): JSX.Element => {
+	const [user, setUser] = useState<User | null>(null);
 	const { loading } = useQuery(GET_CURRENT_USER, {
 		onCompleted: (data) => {
 			if (data && data.currentUser) setUser(data.currentUser);

@@ -1,9 +1,13 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { ApolloProvider } from "@apollo/client/react";
-import { ChakraProvider, StylesProvider } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import { client } from "./api/apollo";
 
-const ProviderWrapper = ({ children }: any) => {
+const ProviderWrapper = ({
+	children,
+}: {
+	children: ReactNode;
+}): JSX.Element => {
 	return (
 		<ChakraProvider>
 			<ApolloProvider client={client}>

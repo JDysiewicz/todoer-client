@@ -1,6 +1,22 @@
-import { gql, useMutation } from "@apollo/client";
+import {
+	FetchResult,
+	MutationFunctionOptions,
+	OperationVariables,
+	useMutation,
+} from "@apollo/client";
 import { useHistory } from "react-router";
 import { LOG_IN } from "../graphql/mutations";
+import { User } from "../types";
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+interface UseLoginUserInput {
+	setEmail: React.Dispatch<React.SetStateAction<string>>;
+	setPassword: React.Dispatch<React.SetStateAction<string>>;
+	setIsSubmitting: React.Dispatch<React.SetStateAction<boolean>>;
+	setUser: React.Dispatch<React.SetStateAction<User | null>>;
+	setError: React.Dispatch<React.SetStateAction<string>>;
+}
 
 export const useLoginUser = ({
 	setEmail,
@@ -8,7 +24,9 @@ export const useLoginUser = ({
 	setIsSubmitting,
 	setUser,
 	setError,
-}: any) => {
+}: UseLoginUserInput): ((
+	options?: MutationFunctionOptions<any, OperationVariables> | undefined
+) => Promise<FetchResult<any, Record<string, any>, Record<string, any>>>) => {
 	const history = useHistory();
 	const [logUserIn] = useMutation(LOG_IN, {
 		onError: (err) => {

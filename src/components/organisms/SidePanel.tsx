@@ -2,6 +2,7 @@ import { gql, useQuery } from "@apollo/client";
 import { Box, Text } from "@chakra-ui/layout";
 import React from "react";
 import { useHistory } from "react-router";
+import { Project } from "../../types";
 
 const PROJECTS = gql`
 	query Projects {
@@ -19,12 +20,12 @@ const PROJECTS = gql`
 	}
 `;
 
-const SidePanel = () => {
+const SidePanel = (): JSX.Element => {
 	const { data } = useQuery(PROJECTS);
 	const history = useHistory();
 	const renderProjects = () => {
 		if (!data) return null;
-		return data.projects.map((project: any) => {
+		return data.projects.map((project: Project) => {
 			return (
 				<Box
 					onClick={() => history.push(`/project/${project.id}`)}

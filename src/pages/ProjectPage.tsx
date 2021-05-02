@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-	Box,
-	Flex,
-	Heading,
-	ListIcon,
-	ListItem,
-	UnorderedList,
-} from "@chakra-ui/layout";
+import { Box, Flex, Heading, ListItem, UnorderedList } from "@chakra-ui/layout";
 import { useParams } from "react-router";
 import { useGetProjectById } from "../hooks/useGetProjectById";
 import AddItem from "../components/molecules/AddItem";
@@ -17,8 +10,8 @@ import { useMutation } from "@apollo/client";
 
 import { DELETE_TODO } from "../graphql/mutations";
 
-const ProjectPage = () => {
-	const { projectId }: any = useParams();
+const ProjectPage = (): JSX.Element => {
+	const { projectId }: { projectId: string } = useParams();
 	const { project, loading, error, refetchProjects } = useGetProjectById(
 		projectId
 	);

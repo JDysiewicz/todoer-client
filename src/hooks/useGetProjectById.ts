@@ -1,9 +1,18 @@
-import { gql, useLazyQuery } from "@apollo/client";
+import { ApolloError, useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { GET_PROJECT } from "../graphql/queries";
 import { Project } from "../types";
 
-export const useGetProjectById = (projectId: string) => {
+/* eslint-disable  @typescript-eslint/no-explicit-any*/
+
+export const useGetProjectById = (
+	projectId: string
+): {
+	project: Project | undefined;
+	loading: boolean;
+	error: ApolloError | undefined;
+	refetchProjects: () => Promise<void>;
+} => {
 	const [project, setProject] = useState<Project>();
 	const [getProject, { data, loading, error, refetch }] = useLazyQuery(
 		GET_PROJECT

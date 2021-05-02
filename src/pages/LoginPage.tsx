@@ -3,16 +3,19 @@ import { useLoginUser } from "../hooks/useLoginUser";
 import {
 	FormControl,
 	FormLabel,
-	FormErrorMessage,
-	FormHelperText,
 	Input,
 	Box,
 	Heading,
 	Button,
 	Flex,
 } from "@chakra-ui/react";
+import { User } from "../types";
 
-const Login = ({ setUser }: any) => {
+const Login = ({
+	setUser,
+}: {
+	setUser: React.Dispatch<React.SetStateAction<User | null>>;
+}): JSX.Element => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [isSubmitting, setIsSubmitting] = useState(false);
