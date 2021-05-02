@@ -1,6 +1,6 @@
 import React from "react";
 
-const NullComponent = () => {
+const NullComponent = (): JSX.Element => {
 	return <div></div>;
 };
 

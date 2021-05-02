@@ -1,10 +1,15 @@
 import { Button } from "@chakra-ui/button";
-import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
-import React from "react";
+import { Box, Flex, Heading } from "@chakra-ui/layout";
+import React, { ReactNode } from "react";
 import { useHistory } from "react-router";
 import { client } from "../../api/apollo";
+import { User } from "../../types";
 
-const Header = ({ setUser }: any) => {
+interface HeaderProps {
+	setUser: React.Dispatch<React.SetStateAction<User | null>>;
+}
+
+const Header: React.FC<HeaderProps> = ({ setUser }) => {
 	const history = useHistory();
 	const logout = async () => {
 		setUser(null);
@@ -23,7 +28,7 @@ const Header = ({ setUser }: any) => {
 	);
 };
 
-const NavBarContainer = ({ children }: any) => {
+const NavBarContainer = ({ children }: { children: ReactNode }) => {
 	return (
 		<Flex
 			as="nav"
@@ -41,9 +46,9 @@ const NavBarContainer = ({ children }: any) => {
 	);
 };
 
-const Logo = (props: any) => {
+const Logo = () => {
 	return (
-		<Box {...props}>
+		<Box>
 			<Heading>Todoer</Heading>
 		</Box>
 	);
