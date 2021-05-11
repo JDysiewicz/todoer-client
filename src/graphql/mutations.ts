@@ -29,3 +29,12 @@ export const DELETE_TODO = gql`
 		deleteTodo(id: $id)
 	}
 `;
+
+export const CREATE_PROJECT = gql`
+	mutation CreateProject($name: String!, $order: Int!, $color: String!) {
+		createProject(input: { name: $name, color: $color, order: $order }) {
+			name
+			id
+		}
+	}
+`;

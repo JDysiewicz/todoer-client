@@ -1,9 +1,10 @@
 import { Button } from "@chakra-ui/button";
-import { Box, Flex, Heading } from "@chakra-ui/layout";
-import React, { ReactNode } from "react";
+import { Flex } from "@chakra-ui/layout";
+import React from "react";
 import { useHistory } from "react-router";
 import { client } from "../../api/apollo";
 import { User } from "../../types";
+import Logo from "../atoms/Logo";
 
 interface HeaderProps {
 	setUser: React.Dispatch<React.SetStateAction<User | null>>;
@@ -19,17 +20,6 @@ const Header: React.FC<HeaderProps> = ({ setUser }) => {
 	};
 
 	return (
-		<NavBarContainer>
-			<Logo />
-			<Button color="black" onClick={() => logout()}>
-				Logout!
-			</Button>
-		</NavBarContainer>
-	);
-};
-
-const NavBarContainer = ({ children }: { children: ReactNode }) => {
-	return (
 		<Flex
 			as="nav"
 			align="center"
@@ -41,16 +31,11 @@ const NavBarContainer = ({ children }: { children: ReactNode }) => {
 			bg="#DB4C3F"
 			color={["white", "white", "primary.700", "primary.700"]}
 		>
-			{children}
+			<Logo />
+			<Button color="black" onClick={() => logout()}>
+				Logout!
+			</Button>
 		</Flex>
-	);
-};
-
-const Logo = () => {
-	return (
-		<Box>
-			<Heading>Todoer</Heading>
-		</Box>
 	);
 };
 

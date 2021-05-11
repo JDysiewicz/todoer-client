@@ -15,3 +15,19 @@ export const GET_PROJECT = gql`
 		}
 	}
 `;
+
+export const GET_PROJECTS = gql`
+	query Projects {
+		projects {
+			color
+			id
+			name
+			order
+			todos {
+				due
+				id
+				title
+			}
+		}
+	}
+`;
