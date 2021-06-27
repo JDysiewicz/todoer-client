@@ -9,6 +9,7 @@ import ProjectPage from "./pages/ProjectPage";
 import SidePanel from "./components/organisms/SidePanel";
 import UserContext from "./context/UserContext";
 import { User } from "./types";
+import Register from "./pages/RegisterPage";
 
 const GET_CURRENT_USER = gql`
 	query CurrentUser {
@@ -34,34 +35,40 @@ const AppRoutes = (): JSX.Element => {
 	return (
 		<UserContext.Provider value={user}>
 			<Router>
-				{!user && (
-					<Route
-						path="/"
-						render={(props) => (
-							<Login {...props} setUser={setUser} />
-						)}
-					/>
-				)}
-				{user && (
-					<>
-						<Header setUser={setUser} />
-						<Grid templateColumns="20% 80%">
-							<GridItem>
-								<SidePanel />
-							</GridItem>
-							<GridItem>
-								<Switch>
-									<Route
-										path="/project/:projectId"
-										component={ProjectPage}
-									/>
+				<Switch>
+					<Route path="/register" component={Register} />
+					{!user && (
+						<Route
+							path="/"
+							render={(props) => (
+								<Login {...props} setUser={setUser} />
+							)}
+						/>
+					)}
+					{user && (
+						<>
+							<Header setUser={setUser} />
+							<Grid templateColumns="20% 80%">
+								<GridItem>
+									<SidePanel />
+								</GridItem>
+								<GridItem>
+									<Switch>
+										<Route
+											path="/project/:projectId"
+											component={ProjectPage}
+										/>
 
-									<Route path="/" component={NullComponent} />
-								</Switch>
-							</GridItem>
-						</Grid>
-					</>
-				)}
+										<Route
+											path="/"
+											component={NullComponent}
+										/>
+									</Switch>
+								</GridItem>
+							</Grid>
+						</>
+					)}
+				</Switch>
 			</Router>
 		</UserContext.Provider>
 	);

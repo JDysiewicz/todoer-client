@@ -9,24 +9,19 @@ import {
 	Button,
 	Flex,
 } from "@chakra-ui/react";
-import { User } from "../types";
 import { NavLink } from "react-router-dom";
+import { useRegisterUser } from "../hooks/useRegisterUser";
 
-const Login = ({
-	setUser,
-}: {
-	setUser: React.Dispatch<React.SetStateAction<User | null>>;
-}): JSX.Element => {
+const Register = (): JSX.Element => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [passwordConfirmation, setPasswordConfirmation] = useState("");
+	const [name, setName] = useState("");
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [error, setError] = useState("");
 
-	const login = useLoginUser({
-		setEmail,
-		setPassword,
+	const register = useRegisterUser({
 		setIsSubmitting,
-		setUser,
 		setError,
 	});
 
@@ -34,18 +29,32 @@ const Login = ({
 		<Flex width="full" align="center" justifyContent="center">
 			<Box m={10} p={2}>
 				<Box textAlign="center">
-					<Heading marginBottom="10px">Login</Heading>
+					<Heading marginBottom="10px">Create Account</Heading>
 				</Box>
 				<Box my={4} textAlign="left">
 					<form
 						onSubmit={(e) => {
 							e.preventDefault();
 							setIsSubmitting(true);
-							login({
-								variables: { email, password },
+							register({
+								variables: {
+									email,
+									password,
+									name,
+									passwordConfirmation,
+								},
 							});
 						}}
 					>
+						<FormControl id="name">
+							<FormLabel>Name</FormLabel>
+							<Input
+								value={name}
+								type="text"
+								onChange={(e) => setName(e.target.value)}
+							/>
+						</FormControl>
+
 						<FormControl id="email">
 							<FormLabel>Email address</FormLabel>
 							<Input
@@ -63,21 +72,31 @@ const Login = ({
 								onChange={(e) => setPassword(e.target.value)}
 							/>
 						</FormControl>
+						<FormControl id="password-confirmation">
+							<FormLabel>Confirm Password</FormLabel>
+							<Input
+								value={passwordConfirmation}
+								type="password"
+								onChange={(e) =>
+									setPasswordConfirmation(e.target.value)
+								}
+							/>
+						</FormControl>
 						<Button
 							width="full"
 							mt={6}
 							disabled={isSubmitting}
 							type="submit"
 						>
-							Log in
+							Create Account
 						</Button>
 						{error && <p style={{ color: "red" }}>{error}</p>}
 					</form>
 				</Box>
-				<NavLink to="/register">Create an account</NavLink>
+				<NavLink to="/">Already have an account? Sign in!</NavLink>
 			</Box>
 		</Flex>
 	);
 };
 
-export default Login;
+export default Register;

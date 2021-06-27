@@ -14,6 +14,26 @@ export const LOG_IN = gql`
 	}
 `;
 
+export const CREATE_USER = gql`
+	mutation CreateUser(
+		$email: String!
+		$name: String!
+		$password: String!
+		$passwordConfirmation: String!
+	) {
+		createUser(
+			input: {
+				email: $email
+				name: $name
+				password: $password
+				passwordConfirmation: $passwordConfirmation
+			}
+		) {
+			email
+		}
+	}
+`;
+
 export const CREATE_TODO = gql`
 	mutation CreateTodo($projectId: ID!, $title: String!, $due: NaiveDateTime) {
 		createTodo(input: { projectId: $projectId, title: $title, due: $due }) {
