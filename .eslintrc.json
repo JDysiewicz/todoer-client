@@ -1,0 +1,16 @@
+{
+	"env": {
+		"browser": true
+	},
+	"extends": [
+		"react-app",
+		"react-app/jest",
+		"eslint:recommended",
+		"plugin:@typescript-eslint/eslint-recommended",
+		"plugin:@typescript-eslint/recommended"
+	],
+	"ignorePatterns": ["src/**/__tests__", "cypress"],
+	"rules": {
+		"@typescript-eslint/no-explicit-any": "off"
+	}
+}

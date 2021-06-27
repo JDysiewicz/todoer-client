@@ -1,10 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Project } from "../../types";
 import { Box, Flex, Text } from "@chakra-ui/layout";
 import { useHistory } from "react-router";
-import { IconButton } from "@chakra-ui/button";
-import { DeleteIcon } from "@chakra-ui/icons";
-import { Fade } from "@chakra-ui/transition";
 
 interface ProjectItemProps {
 	project: Project;
