@@ -4,22 +4,25 @@ import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import ErrorMessage from "../atoms/ErrorMessage";
 
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useRegisterUser } from "../../hooks/useRegisterUser";
+import { useLoginUser } from "../../hooks/useLoginUser";
+import { User } from "../../types";
 
-interface RegisterFormInputs {
-	name: string;
+interface LoginFormInputs {
 	email: string;
 	password: string;
-	passwordConfirmation: string;
 }
 
-const RegisterForm = (): JSX.Element => {
+interface LoginFormProps {
+	setUser: React.Dispatch<React.SetStateAction<User | null>>;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ setUser }): JSX.Element => {
 	const {
 		register,
 		handleSubmit,
 		watch,
 		formState: { errors },
-	} = useForm<RegisterFormInputs>();
+	} = useForm<LoginFormInputs>();
 
 	const password = useRef({});
 	password.current = watch("password", "");
@@ -27,41 +30,21 @@ const RegisterForm = (): JSX.Element => {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [error, setError] = useState("");
 
-	const registerUser = useRegisterUser({
+	const loginUser = useLoginUser({
 		setIsSubmitting,
+		setUser,
 		setError,
 	});
 
-	const onSubmit: SubmitHandler<RegisterFormInputs> = (data) => {
+	const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
 		setIsSubmitting(true);
-		registerUser({
-			variables: {
-				email: data.email,
-				password: data.password,
-				name: data.name,
-				passwordConfirmation: data.passwordConfirmation,
-			},
+		loginUser({
+			variables: { email: data.email, password: data.password },
 		});
 	};
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<FormControl id="name">
-				<FormLabel>Name</FormLabel>
-				<Input
-					maxWidth="20rem"
-					{...register("name", {
-						required: {
-							value: true,
-							message: "Please enter a name",
-						},
-					})}
-				/>
-				{errors.name && (
-					<ErrorMessage message={errors.name.message || "Error"} />
-				)}
-			</FormControl>
-
 			<FormControl id="email">
 				<FormLabel>Email address</FormLabel>
 				<Input
@@ -88,11 +71,6 @@ const RegisterForm = (): JSX.Element => {
 							value: true,
 							message: "Please enter a password",
 						},
-						minLength: {
-							value: 8,
-							message:
-								"Password must be at least 8 characters long",
-						},
 					})}
 					type="password"
 				/>
@@ -102,33 +80,12 @@ const RegisterForm = (): JSX.Element => {
 					/>
 				)}
 			</FormControl>
-			<FormControl id="password-confirmation">
-				<FormLabel>Confirm Password</FormLabel>
-				<Input
-					maxWidth="20rem"
-					{...register("passwordConfirmation", {
-						required: {
-							value: true,
-							message: "Please confirm your password",
-						},
-						validate: (value) =>
-							value === password.current ||
-							"Passwords do not match",
-					})}
-					type="password"
-				/>
-				{errors.passwordConfirmation && (
-					<ErrorMessage
-						message={errors.passwordConfirmation.message || "Error"}
-					/>
-				)}
-			</FormControl>
 			<Button width="full" mt={6} disabled={isSubmitting} type="submit">
-				Create Account
+				Login
 			</Button>
 			{error && <p style={{ color: "red" }}>{error}</p>}
 		</form>
 	);
 };
 
-export default RegisterForm;
+export default LoginForm;
