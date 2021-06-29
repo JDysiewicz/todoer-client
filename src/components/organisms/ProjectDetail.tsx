@@ -16,6 +16,8 @@ interface ProjectDetailProps {
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, refetch }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
+	// when project changes reset add item state, however keep open
+	// after adding an item
 	useEffect(() => {
 		setIsOpen(false);
 	}, [project.id]);

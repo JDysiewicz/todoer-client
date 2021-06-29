@@ -38,6 +38,7 @@ const AddProjectDialog: React.FC<AddProjectDialogProps> = ({
 	});
 
 	const submitProject = () => {
+		if (!name || !name.trim()) return;
 		const input = { name, order: 1, color: "#FF6622" };
 		createProject({ variables: input });
 		setName("");
@@ -73,7 +74,7 @@ const AddProjectDialog: React.FC<AddProjectDialogProps> = ({
 							bgColor="#DB4C3F"
 							color="#FFFFFF"
 							size="md"
-							disabled={name === ""}
+							disabled={!name || !name.trim()}
 							onClick={submitProject}
 							_hover={{ bg: "#DB4C3F" }}
 						>
