@@ -5,16 +5,15 @@ import TodoItem from "../atoms/TodoItem";
 
 interface TodoListProps {
 	project: Project;
-	refetch: () => Promise<void>;
 }
 
-const TodoList: React.FC<TodoListProps> = ({ project, refetch }) => {
+const TodoList: React.FC<TodoListProps> = ({ project }) => {
 	return (
 		<UnorderedList marginTop="4" listStyleType="none" spacing="3">
 			{project.todos.map((todo) => {
 				return (
 					<ListItem key={todo.id}>
-						<TodoItem todo={todo} refetch={refetch} />
+						<TodoItem todo={todo} />
 					</ListItem>
 				);
 			})}
