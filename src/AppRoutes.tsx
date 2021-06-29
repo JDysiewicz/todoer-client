@@ -8,7 +8,7 @@ import ProjectPage from "./pages/ProjectPage";
 import SidePanel from "./components/organisms/SidePanel";
 import UserContext from "./context/UserContext";
 import { User } from "./types";
-import Register from "./pages/RegisterPage";
+import RegisterPage from "./pages/RegisterPage";
 
 const GET_CURRENT_USER = gql`
 	query CurrentUser {
@@ -35,7 +35,7 @@ const AppRoutes = (): JSX.Element => {
 		<UserContext.Provider value={user}>
 			<Router>
 				<Switch>
-					<Route path="/register" component={Register} />
+					<Route path="/register" component={RegisterPage} />
 					{!user && (
 						<Route
 							path="/"

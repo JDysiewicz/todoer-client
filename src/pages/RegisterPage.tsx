@@ -11,7 +11,7 @@ import {
 import { NavLink } from "react-router-dom";
 import { useRegisterUser } from "../hooks/useRegisterUser";
 
-const Register = (): JSX.Element => {
+const RegisterPage = (): JSX.Element => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [passwordConfirmation, setPasswordConfirmation] = useState("");
@@ -98,4 +98,4 @@ const Register = (): JSX.Element => {
 	);
 };
 
-export default Register;
+export default RegisterPage;
