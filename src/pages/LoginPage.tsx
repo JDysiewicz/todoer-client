@@ -12,7 +12,7 @@ import {
 import { User } from "../types";
 import { NavLink } from "react-router-dom";
 
-const Login = ({
+const LoginPage = ({
 	setUser,
 }: {
 	setUser: React.Dispatch<React.SetStateAction<User | null>>;
@@ -80,4 +80,4 @@ const Login = ({
 	);
 };
 
-export default Login;
+export default LoginPage;

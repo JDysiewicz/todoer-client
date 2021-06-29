@@ -3,7 +3,7 @@ import { Grid, GridItem } from "@chakra-ui/layout";
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/molecules/Header";
-import Login from "./pages/LoginPage";
+import LoginPage from "./pages/LoginPage";
 import ProjectPage from "./pages/ProjectPage";
 import SidePanel from "./components/organisms/SidePanel";
 import UserContext from "./context/UserContext";
@@ -40,7 +40,7 @@ const AppRoutes = (): JSX.Element => {
 						<Route
 							path="/"
 							render={(props) => (
-								<Login {...props} setUser={setUser} />
+								<LoginPage {...props} setUser={setUser} />
 							)}
 						/>
 					)}
