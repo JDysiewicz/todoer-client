@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/molecules/Header";
 import Login from "./pages/LoginPage";
-import NullComponent from "./pages/NullComponentPage";
 import ProjectPage from "./pages/ProjectPage";
 import SidePanel from "./components/organisms/SidePanel";
 import UserContext from "./context/UserContext";
@@ -57,11 +56,6 @@ const AppRoutes = (): JSX.Element => {
 										<Route
 											path="/project/:projectId"
 											component={ProjectPage}
-										/>
-
-										<Route
-											path="/"
-											component={NullComponent}
 										/>
 									</Switch>
 								</GridItem>
