@@ -1,27 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { CREATE_TODO } from "../../graphql/mutations";
 import { Input } from "@chakra-ui/input";
 import { Stack } from "@chakra-ui/layout";
 import { Button, ButtonGroup } from "@chakra-ui/button";
+import { RefetchTodosContext } from "../../context/RefetchTodosContext";
 
 interface AddItemProps {
 	projectId: string;
-	refetchProjects: () => Promise<void>;
 	closeAddItem: () => void;
 }
 
-const AddItem: React.FC<AddItemProps> = ({
-	projectId,
-	refetchProjects,
-	closeAddItem,
-}) => {
+const AddItem: React.FC<AddItemProps> = ({ projectId, closeAddItem }) => {
 	const [title, setTitle] = useState<string>("");
 	const [due, setDue] = useState<Date>();
-
+	const refetchTodos = useContext(RefetchTodosContext);
 	const [createTodo] = useMutation(CREATE_TODO, {
 		onCompleted: (data) => {
-			refetchProjects();
+			refetchTodos();
 		},
 	});
 

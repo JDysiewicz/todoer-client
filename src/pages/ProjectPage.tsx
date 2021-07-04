@@ -6,24 +6,24 @@ import { useGetProjectById } from "../hooks/useGetProjectById";
 import ProjectDetail from "../components/organisms/ProjectDetail";
 import LoadingSpinner from "../components/atoms/LoadingSpinner";
 
-import { RefetchProjectContext } from "../context/RefetchProjectContext";
+import { RefetchTodosContext } from "../context/RefetchTodosContext";
 
 const ProjectPage = (): JSX.Element => {
 	const { projectId }: { projectId: string } = useParams();
-	const { project, loading, error, refetchProjects } =
+	const { project, loading, error, refetchTodos } =
 		useGetProjectById(projectId);
 
 	if (loading) return <LoadingSpinner />;
 	if (error) return <div>Error: {JSON.stringify(error)}</div>;
 	if (!project) return <Heading>Project not found.</Heading>;
 	return (
-		<RefetchProjectContext.Provider value={refetchProjects}>
+		<RefetchTodosContext.Provider value={refetchTodos}>
 			<Flex pt={6} w="100%" align="center">
 				<Box mx="auto" bg="white" w="50%">
 					<ProjectDetail project={project} />
 				</Box>
 			</Flex>
-		</RefetchProjectContext.Provider>
+		</RefetchTodosContext.Provider>
 	);
 };
 

@@ -3,7 +3,7 @@ import React from "react";
 
 const Logo = (): JSX.Element => {
 	return (
-		<Box>
+		<Box pl={9}>
 			<Heading>Todoer</Heading>
 		</Box>
 	);

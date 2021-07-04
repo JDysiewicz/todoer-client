@@ -1,24 +1,25 @@
-import { useQuery } from "@apollo/client";
 import { IconButton } from "@chakra-ui/button";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { AddIcon } from "@chakra-ui/icons";
 import { Box, Flex, Heading } from "@chakra-ui/layout";
 import { Fade } from "@chakra-ui/transition";
-import React, { useState } from "react";
-import { GET_PROJECTS } from "../../graphql/queries";
+import React, { useContext, useState } from "react";
+import { ProjectsContext } from "../../context/ProjectsContext";
+
 import { Project } from "../../types";
 import ProjectItem from "../molecules/ProjectItem";
 import AddProjectDialog from "./AddProjectDialog";
 
 const SidePanel = (): JSX.Element => {
-	const { data, refetch: refetchProjects } = useQuery(GET_PROJECTS);
 	const { isOpen, onOpen, onClose } = useDisclosure();
+
+	const { projects, refetchProjects } = useContext(ProjectsContext);
 
 	const [showAddProject, setShowAddProject] = useState(false);
 
 	const renderProjects = () => {
-		if (!data) return null;
-		return data.projects.map((project: Project) => {
+		if (!projects) return null;
+		return projects.map((project: Project) => {
 			return <ProjectItem key={project.id} project={project} />;
 		});
 	};
