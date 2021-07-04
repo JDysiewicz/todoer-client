@@ -11,16 +11,12 @@ import { User } from "../types";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 interface UseLoginUserInput {
-	setEmail: React.Dispatch<React.SetStateAction<string>>;
-	setPassword: React.Dispatch<React.SetStateAction<string>>;
 	setIsSubmitting: React.Dispatch<React.SetStateAction<boolean>>;
 	setUser: React.Dispatch<React.SetStateAction<User | null>>;
 	setError: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const useLoginUser = ({
-	setEmail,
-	setPassword,
 	setIsSubmitting,
 	setUser,
 	setError,
@@ -33,8 +29,6 @@ export const useLoginUser = ({
 			if (err.message) setError(err.message);
 			if (!err.message) setError("Something went wrong.");
 			setTimeout(() => setError(""), 3000);
-			setEmail("");
-			setPassword("");
 			setIsSubmitting(false);
 		},
 		onCompleted: (data) => {
@@ -43,8 +37,6 @@ export const useLoginUser = ({
 			localStorage.setItem("token", token);
 			setUser(user);
 			setError("");
-			setEmail("");
-			setPassword("");
 			setIsSubmitting(false);
 			history.push("/");
 		},

@@ -3,13 +3,13 @@ import { Grid, GridItem } from "@chakra-ui/layout";
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/molecules/Header";
-import Login from "./pages/LoginPage";
-import NullComponent from "./pages/NullComponentPage";
+import LoginPage from "./pages/LoginPage";
 import ProjectPage from "./pages/ProjectPage";
 import SidePanel from "./components/organisms/SidePanel";
+import LoadingSpinner from "./components/atoms/LoadingSpinner";
 import UserContext from "./context/UserContext";
 import { User } from "./types";
-import Register from "./pages/RegisterPage";
+import RegisterPage from "./pages/RegisterPage";
 
 const GET_CURRENT_USER = gql`
 	query CurrentUser {
@@ -30,18 +30,18 @@ const AppRoutes = (): JSX.Element => {
 		},
 	});
 
-	if (loading) return <div>Loading....</div>;
+	if (loading) return <LoadingSpinner />;
 
 	return (
 		<UserContext.Provider value={user}>
 			<Router>
 				<Switch>
-					<Route path="/register" component={Register} />
+					<Route path="/register" component={RegisterPage} />
 					{!user && (
 						<Route
 							path="/"
 							render={(props) => (
-								<Login {...props} setUser={setUser} />
+								<LoginPage {...props} setUser={setUser} />
 							)}
 						/>
 					)}
@@ -57,11 +57,6 @@ const AppRoutes = (): JSX.Element => {
 										<Route
 											path="/project/:projectId"
 											component={ProjectPage}
-										/>
-
-										<Route
-											path="/"
-											component={NullComponent}
 										/>
 									</Switch>
 								</GridItem>

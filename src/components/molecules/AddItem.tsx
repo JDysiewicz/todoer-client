@@ -29,6 +29,7 @@ const AddItem: React.FC<AddItemProps> = ({
 		e: React.MouseEvent<HTMLButtonElement, MouseEvent>
 	) => {
 		e.preventDefault();
+		if (!title || !title.trim()) return;
 		createTodo({ variables: { projectId, title, due } });
 		setTitle("");
 		setDue(undefined);
@@ -48,7 +49,7 @@ const AddItem: React.FC<AddItemProps> = ({
 					bgColor="#DB4C3F"
 					color="#FFFFFF"
 					size="md"
-					disabled={title === ""}
+					disabled={!title || !title.trim()}
 					onClick={handleSubmit}
 					_hover={{ bg: "#DB4C3F" }}
 				>
