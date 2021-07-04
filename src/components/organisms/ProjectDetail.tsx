@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Project } from "../../types";
 
 import AddItem from "../molecules/AddItem";
@@ -7,7 +7,6 @@ import { AddIcon } from "@chakra-ui/icons";
 
 import TodoList from "../molecules/TodoList";
 import { useEffect } from "react";
-import { RefetchProjectContext } from "../../context/RefetchProjectContext";
 
 import ProjectHeader from "../molecules/ProjectHeader";
 
@@ -17,7 +16,6 @@ interface ProjectDetailProps {
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
 	const [isOpen, setIsOpen] = useState(false);
-	const refetch = useContext(RefetchProjectContext);
 
 	// when project changes reset add item state, however keep open
 	// after adding an item
@@ -33,7 +31,6 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
 			{isOpen ? (
 				<AddItem
 					projectId={project.id}
-					refetchProjects={refetch}
 					closeAddItem={() => setIsOpen(false)}
 				/>
 			) : (
