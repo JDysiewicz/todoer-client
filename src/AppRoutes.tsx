@@ -6,6 +6,7 @@ import Header from "./components/molecules/Header";
 import LoginPage from "./pages/LoginPage";
 import ProjectPage from "./pages/ProjectPage";
 import SidePanel from "./components/organisms/SidePanel";
+import LoadingSpinner from "./components/atoms/LoadingSpinner";
 import UserContext from "./context/UserContext";
 import { User } from "./types";
 import RegisterPage from "./pages/RegisterPage";
@@ -29,7 +30,7 @@ const AppRoutes = (): JSX.Element => {
 		},
 	});
 
-	if (loading) return <div>Loading....</div>;
+	if (loading) return <LoadingSpinner />;
 
 	return (
 		<UserContext.Provider value={user}>

@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import { useGetProjectById } from "../hooks/useGetProjectById";
 
 import ProjectDetail from "../components/organisms/ProjectDetail";
+import LoadingSpinner from "../components/atoms/LoadingSpinner";
 
 import { RefetchProjectContext } from "../context/RefetchProjectContext";
 
@@ -12,7 +13,7 @@ const ProjectPage = (): JSX.Element => {
 	const { project, loading, error, refetchProjects } =
 		useGetProjectById(projectId);
 
-	if (loading) return <div>Loading...</div>;
+	if (loading) return <LoadingSpinner />;
 	if (error) return <div>Error: {JSON.stringify(error)}</div>;
 	if (!project) return <Heading>Project not found.</Heading>;
 	return (
