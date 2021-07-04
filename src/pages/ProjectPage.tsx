@@ -7,14 +7,12 @@ import { Button } from "@chakra-ui/button";
 import { AddIcon } from "@chakra-ui/icons";
 import { Checkbox } from "@chakra-ui/checkbox";
 import { useMutation } from "@apollo/client";
-
 import { DELETE_TODO } from "../graphql/mutations";
 
 const ProjectPage = (): JSX.Element => {
 	const { projectId }: { projectId: string } = useParams();
-	const { project, loading, error, refetchProjects } = useGetProjectById(
-		projectId
-	);
+	const { project, loading, error, refetchProjects } =
+		useGetProjectById(projectId);
 
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -31,6 +29,7 @@ const ProjectPage = (): JSX.Element => {
 		<Flex pt={6} w="100%" align="center">
 			<Box mx="auto" bg="white" w="50%">
 				<Heading>{project.name}</Heading>
+
 				<UnorderedList marginTop="4" listStyleType="none" spacing="3">
 					{project.todos.map((todo) => {
 						return (

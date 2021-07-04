@@ -1,6 +1,7 @@
 import React from "react";
 import { Project } from "../../types";
 import { Box, Flex, Text } from "@chakra-ui/layout";
+
 import { useHistory } from "react-router";
 
 interface ProjectItemProps {

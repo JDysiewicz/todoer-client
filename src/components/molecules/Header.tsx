@@ -26,8 +26,8 @@ const Header: React.FC<HeaderProps> = ({ setUser }) => {
 			justify="space-between"
 			wrap="wrap"
 			w="100%"
-			p={4}
-			pb={6}
+			p={2}
+			pb={2}
 			bg="#DB4C3F"
 			color={["white", "white", "primary.700", "primary.700"]}
 		>
