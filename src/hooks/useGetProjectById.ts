@@ -11,14 +11,13 @@ export const useGetProjectById = (
 	project: Project | undefined;
 	loading: boolean;
 	error: ApolloError | undefined;
-	refetchProjects: () => Promise<void>;
+	refetchTodos: () => Promise<void>;
 } => {
 	const [project, setProject] = useState<Project>();
-	const [getProject, { data, loading, error, refetch }] = useLazyQuery(
-		GET_PROJECT
-	);
+	const [getProject, { data, loading, error, refetch }] =
+		useLazyQuery(GET_PROJECT);
 
-	const refetchProjects = async () => {
+	const refetchTodos = async () => {
 		if (!refetch) return;
 		const response = await refetch();
 		setProject(response.data.project);
@@ -31,5 +30,5 @@ export const useGetProjectById = (
 		}
 	}, [projectId, loading, data, getProject]);
 
-	return { project, loading, error, refetchProjects };
+	return { project, loading, error, refetchTodos };
 };

@@ -31,3 +31,14 @@ export const GET_PROJECTS = gql`
 		}
 	}
 `;
+
+export const GET_CURRENT_USER = gql`
+	query CurrentUser {
+		currentUser {
+			email
+			id
+			name
+			role
+		}
+	}
+`;

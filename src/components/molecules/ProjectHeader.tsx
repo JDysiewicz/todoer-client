@@ -14,7 +14,7 @@ const ProjectHeader: React.FC<ProjectHeaderProps> = ({ project }) => {
 		<Flex justifyContent="space-between">
 			<Heading size="md">{project.name}</Heading>
 			<Flex w="20rem" justifyContent="space-evenly" alignItems="center">
-				<ProjectSettings />
+				<ProjectSettings project={project} />
 			</Flex>
 		</Flex>
 	);

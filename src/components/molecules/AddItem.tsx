@@ -4,7 +4,7 @@ import { CREATE_TODO } from "../../graphql/mutations";
 import { Input } from "@chakra-ui/input";
 import { Stack } from "@chakra-ui/layout";
 import { Button, ButtonGroup } from "@chakra-ui/button";
-import { RefetchProjectContext } from "../../context/RefetchProjectContext";
+import { RefetchTodosContext } from "../../context/RefetchTodosContext";
 
 interface AddItemProps {
 	projectId: string;
@@ -14,10 +14,10 @@ interface AddItemProps {
 const AddItem: React.FC<AddItemProps> = ({ projectId, closeAddItem }) => {
 	const [title, setTitle] = useState<string>("");
 	const [due, setDue] = useState<Date>();
-	const refetch = useContext(RefetchProjectContext);
+	const refetchTodos = useContext(RefetchTodosContext);
 	const [createTodo] = useMutation(CREATE_TODO, {
 		onCompleted: (data) => {
-			refetch();
+			refetchTodos();
 		},
 	});
 

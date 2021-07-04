@@ -3,17 +3,17 @@ import { Todo } from "../../types";
 import { Checkbox } from "@chakra-ui/checkbox";
 import { useMutation } from "@apollo/client";
 import { DELETE_TODO } from "../../graphql/mutations";
-import { RefetchProjectContext } from "../../context/RefetchProjectContext";
+import { RefetchTodosContext } from "../../context/RefetchTodosContext";
 interface TodoItemProps {
 	todo: Todo;
 }
 
 const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
-	const refetch = useContext(RefetchProjectContext);
+	const refetchTodos = useContext(RefetchTodosContext);
 
 	const [deleteTodo] = useMutation(DELETE_TODO, {
 		onCompleted: () => {
-			refetch();
+			refetchTodos();
 		},
 	});
 

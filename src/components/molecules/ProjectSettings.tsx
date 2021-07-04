@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { IconButton } from "@chakra-ui/react";
 import { DeleteIcon, HamburgerIcon } from "@chakra-ui/icons";
 
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 
-const ProjectSettings = (): JSX.Element => {
+import { useMutation } from "@apollo/client";
+import { DELETE_PROJECT } from "../../graphql/mutations";
+import { Project } from "../../types";
+import { useHistory } from "react-router-dom";
+import { ProjectsContext } from "../../context/ProjectsContext";
+
+interface ProjectSettingsProps {
+	project: Project;
+}
+
+const ProjectSettings: React.FC<ProjectSettingsProps> = ({
+	project,
+}): JSX.Element => {
+	const history = useHistory();
+	const { refetchProjects } = useContext(ProjectsContext);
+
+	const [deleteProject] = useMutation(DELETE_PROJECT, {
+		onCompleted: (data) => {
+			refetchProjects();
+			history.push("/");
+		},
+	});
+
 	return (
 		<Menu>
 			<MenuButton
@@ -15,7 +37,16 @@ const ProjectSettings = (): JSX.Element => {
 				variant="outline"
 			/>
 			<MenuList>
-				<MenuItem icon={<DeleteIcon />}>Delete project</MenuItem>
+				<MenuItem
+					onClick={() =>
+						deleteProject({
+							variables: { id: project.id },
+						})
+					}
+					icon={<DeleteIcon />}
+				>
+					Delete project
+				</MenuItem>
 			</MenuList>
 		</Menu>
 	);
