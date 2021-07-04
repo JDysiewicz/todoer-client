@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Project } from "../../types";
-import { Heading } from "@chakra-ui/layout";
+
 import AddItem from "../molecules/AddItem";
 import { Button } from "@chakra-ui/button";
 import { AddIcon } from "@chakra-ui/icons";
@@ -8,6 +8,8 @@ import { AddIcon } from "@chakra-ui/icons";
 import TodoList from "../molecules/TodoList";
 import { useEffect } from "react";
 import { RefetchProjectContext } from "../../context/RefetchProjectContext";
+
+import ProjectHeader from "../molecules/ProjectHeader";
 
 interface ProjectDetailProps {
 	project: Project;
@@ -25,7 +27,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
 
 	return (
 		<>
-			<Heading>{project.name}</Heading>
+			<ProjectHeader project={project} />
+
 			<TodoList project={project} />
 			{isOpen ? (
 				<AddItem
